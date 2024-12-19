@@ -20,8 +20,6 @@ class TestButton(unittest.TestCase):
         # Положительный тест 1
         self.assertEqual(self.button.rect.topleft, (100, 100))  # Проверка позиции кнопки
         self.assertFalse(self.button.clicked)
-
-        # Положительный тест 2
         self.assertEqual(self.button.image.get_size(), (100, 50))  # Проверка размера кнопки
 
     @patch("pygame.mouse.get_pos")
