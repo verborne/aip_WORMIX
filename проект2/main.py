@@ -37,7 +37,7 @@ screen_scroll = 0
 bg_scroll = 0
 level = 52
 
-# Время на ход (не используется в текущей версии)
+# Время на ход 
 time_to_move = 100
 remaining_time = time_to_move
 time_to_game = 600
@@ -256,14 +256,14 @@ class Worm(pygame.sprite.Sprite):
 
         # Инициализация здоровья
         self.hp = hp  # Установка начального здоровья
-        self.alive = True if hp > 0 else False  # Проверка на живой статус
+        self.alive = True if hp > 0 else False  # Проверка на статус
 
         # Внешний вид и характеристики
-        self.skin_type = skin_type  # Установка типа скина
+        self.skin_type = skin_type  # Установка скина
         self.speed = speed  # Установка скорости
 
         # Направление движения
-        self.direction = 1  # Установить начальное направление движения
+        self.direction = 1  
 
         # Вертикальная скорость
         self.vel_y = 0  # Инициализация вертикальной скорости
@@ -271,11 +271,11 @@ class Worm(pygame.sprite.Sprite):
         self.in_air = True  # Флаг, указывающий на то, что игрок в воздухе
 
         # Флаг отражения по горизонтали
-        self.flip = False  # Флаг, который определяет, нужно ли отразить изображение по горизонтали
+        self.flip = False  # Флаг, который определяет, нужно ли отразить изображение
 
         # Анимация
         self.animation_list = []  # Список анимаций
-        self.frame_index = 0  # Индекс текущего кадра анимации
+        self.frame_index = 0  # Индекс текущего кадра 
         self.action = 0  # Текущая анимация
         self.update_time = pygame.time.get_ticks()  # Время последнего обновления анимации
 
@@ -284,15 +284,15 @@ class Worm(pygame.sprite.Sprite):
         self.cooldown = 80  # Время между выстрелами
 
         # Типы анимации
-        animation_types = ['стойка1', "бег1", "прыжок1"]  # Названия анимаций
-        picture_types = ['ст1', "бег1", "пр1"]  # Типы изображений персонажа
+        animation_types = ['стойка1', "бег1", "прыжок1"]  
+        picture_types = ['ст1', "бег1", "пр1"]  
         picture_types_count = 0
 
         # Загрузка анимации
         for animation in animation_types:
             list_list = []
             num_of_frames = len(
-                os.listdir(f"картиночки/персонаж{self.skin_type}/{animation}"))  # Получение количества кадров анимации
+                os.listdir(f"картиночки/персонаж{self.skin_type}/{animation}"))  
             for i in range(1, num_of_frames + 1):
                 player_img = pygame.image.load(
                     f"картиночки/персонаж{self.skin_type}/{animation}/{picture_types[picture_types_count]}{i}.png")
@@ -304,9 +304,9 @@ class Worm(pygame.sprite.Sprite):
             picture_types_count += 1
 
         # Установка начальных значений
-        self.player_image = self.animation_list[self.action][self.frame_index]  # Установить текущее изображение
-        self.rect = self.player_image.get_rect()  # Получить прямоугольник для изображения
-        self.rect.center = (x, y)  # Установить позицию игрока
+        self.player_image = self.animation_list[self.action][self.frame_index]  #текущее изображение
+        self.rect = self.player_image.get_rect()  
+        self.rect.center = (x, y)  # позиция игрока
         self.width = self.player_image.get_width()  # Ширина изображения
         self.height = self.player_image.get_height()  # Высота изображения
 
@@ -462,7 +462,7 @@ class Worm(pygame.sprite.Sprite):
             :raises AttributeError: Если объект target отсутствует атрибут rect или метод check_alive.
             """
         for bullet in self.rifle_bullets:
-            if not bullet.move():  # Если пуля вышла за пределы, удалить ее
+            if not bullet.move():  # Если пуля вышла за пределы
                 self.rifle_bullets.remove(bullet)
             elif bullet.rect.colliderect(target.rect):  # Проверка на столкновение
                 self.rifle_bullets.remove(bullet)  # Удаление пули
@@ -495,7 +495,7 @@ class Worm(pygame.sprite.Sprite):
             """
         if not self.alive:  # Если игрок не жив, выход из метода
             return
-        for _ in range(9):  # Создание 9 пуль
+        for _ in range(9):  # Создание пуль
             angle = random.uniform(-30, 30)  # Случайный угол
             bullet = Bullet_for_shotgun(self.rect.x, self.rect.y, angle, self.direction)  # Создание пули
             self.shotgun_bullets.append(bullet)  # Добавление пули в список
@@ -513,7 +513,7 @@ class Worm(pygame.sprite.Sprite):
             :raises TypeError: Если target не является объектом, который ожидается в методе.
             """
         for bullet in self.shotgun_bullets:
-            if not bullet.move():  # Если пуля вышла за пределы, удалить ее
+            if not bullet.move():  # Если пуля вышла за пределы
                 self.shotgun_bullets.remove(bullet)
             elif bullet.rect.colliderect(target.rect):  # Проверка на столкновение
                 self.shotgun_bullets.remove(bullet)  # Удаление пули
@@ -532,7 +532,7 @@ class Worm(pygame.sprite.Sprite):
             :raises AttributeError: Если объект surface не имеет метода blit, который необходим для рисования пуль.
             """
         for bullet in self.shotgun_bullets:
-            bullet.draw(surface)  # Рисование пули на поверхности
+            bullet.draw(surface)  # Рисование пули 
 
     def shoot_minigun(self):
         """Метод для стрельбы из минигана. Он проверяет, жив ли игрок и если он жив,
@@ -674,7 +674,7 @@ class Worm(pygame.sprite.Sprite):
         :rtype: None
         """
         for arrow in self.arrows:
-            arrow.draw(surface)  # Рисование стрелы на поверхности
+            arrow.draw(surface)  # Рисование стрелы 
 
     def shoot_sniper_rifle(self):
         """Метод для стрельбы из снайперской винтовки.
@@ -734,7 +734,7 @@ class Worm(pygame.sprite.Sprite):
             :raises TypeError: Если screen не является объектом, поддерживающим метод blit.
             """
         screen.blit(pygame.transform.flip(self.player_image, self.flip, False),
-                    self.rect)  # Рисование изображения игрока
+                    self.rect)  # Рисование игрока
 
 # Класс пули для винтовки
 class Bullet_for_rifle():
@@ -1000,15 +1000,15 @@ class Bullet_for_pistol:
             angle (float): Угол, под которым пуля будет двигаться.
             direction (int): Направление движения пули (1 или 0).
         """
-        self.x = x + 25  # Смещение по X для позиции пули
-        self.y = y + 5  # Смещение по Y для позиции пули
-        self.vy = 0  # Изначальная вертикальная скорость
-        self.speed = 5  # Задаем скорость пули
-        self.angle = angle  # Угол движения пули
+        self.x = x + 25  
+        self.y = y + 5  
+        self.vy = 0  
+        self.speed = 5  
+        self.angle = angle  
         self.direction = direction  # Направление полета пули: 1 (вправо) или 0 (влево)
-        self.direction_for_blit = False  # Переменная для отрисовки пули в зависимости от направления
+        self.direction_for_blit = False  
         self.rect = pistol_bullet_img.get_rect(
-            center=(x, y))  # Создание прямоугольника для отрисовки пули и её коллизий
+            center=(x, y))  
 
     def move(self):
         """
@@ -1020,13 +1020,13 @@ class Bullet_for_pistol:
         # Движение пули в зависимости от направления
         if self.direction == 1:
             self.x += self.speed * math.cos(math.radians(self.angle))  # Движение вправо
-            self.y += self.vy  # Вертикальная зависимость
+            self.y += self.vy  
 
         else:
             self.x -= self.speed * math.cos(math.radians(self.angle))  # Движение влево
-            self.y += self.vy  # Вертикальная зависимость
+            self.y += self.vy  
 
-        # Обновление позиции прямоугольника для отрисовки
+        
         self.rect.x = self.x
         self.rect.y = self.y
 
@@ -1039,7 +1039,7 @@ class Bullet_for_pistol:
         if self.x < 0 or self.x > SCREEN_WIDTH or self.y < 0 or self.y > SCREEN_HEIGHT:
             return False  # Если пуля вышла за границы, возвращаем False
 
-        return True  # Если всё в порядке, возвращаем True
+        return True  
 
     def draw(self, surface):
         """
@@ -1050,13 +1050,12 @@ class Bullet_for_pistol:
         """
         # Установка направления для отрисовки
         if self.direction == 1:
-            self.direction_for_blit = False  # Пуля не перевернута
+            self.direction_for_blit = False  
         else:
-            self.direction_for_blit = True  # Пуля перевернута для отображения влево
+            self.direction_for_blit = True  
 
-        # Отрисовка пули с использованием изображения и её положения
         screen.blit(pygame.transform.flip(pistol_bullet_img, self.direction_for_blit, False),
-                    (int(self.x), int(self.y)))  # В зависимости от направления отрисовка переворачивается
+                    (int(self.x), int(self.y)))  
 
 
 # Класс пивной гранаты
@@ -1075,48 +1074,48 @@ class Beer(pygame.sprite.Sprite):
         y (int): Позиция по оси Y, где должен быть создан снаряд.
         direction (int): Направление движения снаряда (1 или -1).
         """
-        pygame.sprite.Sprite.__init__(self)  # Инициализация родительского класса
-        self.image = beer_img  # Изображение снаряда
-        self.rect = self.image.get_rect()  # Получение прямоугольника для коллизий
-        self.rect.center = (x, y)  # Установка центра снаряда
-        self.speed = 10  # Скорость движения снаряда
-        self.damage = 50  # Базовый урон снаряда
-        self.chance = random.randint(0, 100)  # Рандомное число для случайного эффекта
-        self.direction = direction  # Направление движения
-        self.timer = 100  # Время до взрыва (в тиках)
-        self.explosion_radius = 1000  # Радиус взрыва
-        self.vy = -15  # Начальная вертикальная скорость (вверх)
-        self.gravity = 0.7  # Значение гравитации, добавляемое к вертикальной скорости
+        pygame.sprite.Sprite.__init__(self)
+        self.image = beer_img  
+        self.rect = self.image.get_rect()  
+        self.rect.center = (x, y)  
+        self.speed = 10  
+        self.damage = 50  
+        self.chance = random.randint(0, 100)  
+        self.direction = direction  
+        self.timer = 100  
+        self.explosion_radius = 1000  
+        self.vy = -15  
+        self.gravity = 0.7  
 
     def update(self):
         """
         Обновляет состояние снаряда. Уменьшает таймер взрыва,
         применяет гравитацию и проверяет столкновения.
         """
-        self.timer -= 1  # Уменьшение таймера
+        self.timer -= 1  
         if self.timer <= 0:
-            self.explode()  # Взрыв, если таймер истек
+            self.explode()  
 
-        self.vy += self.gravity  # Применение гравитации к вертикальной скорости
-        self.rect.x += self.speed * self.direction  # Обновление позиции по оси X
-        self.rect.y += self.vy  # Обновление позиции по оси Y
+        self.vy += self.gravity  
+        self.rect.x += self.speed * self.direction  
+        self.rect.y += self.vy  
 
-        # Проверка столкновения с препятствиями
+        
         for tile in world.obstacle_list:
-            if tile[1].colliderect(self.rect):  # Если есть столкновение с препятствием
-                self.explode()  # Взрыв при столкновении
+            if tile[1].colliderect(self.rect):  
+                self.explode()  
 
         # Проверка на столкновение с игроками
-        if self.rect.colliderect(player2.rect):  # Если снаряд пересекает игрока
-            self.explode()  # Взрыв при столкновении с игроком
+        if self.rect.colliderect(player2.rect):  
+            self.explode()  
 
     def explode(self):
         """
         Обрабатывает взрыв снаряда. Наносит урон игроку и удаляет
         снаряд из игры.
         """
-        self.damage_players(player2)  # Наносит урон второму игроку
-        self.kill()  # Удаление снаряда после взрыва
+        self.damage_players(player2)  
+        self.kill()  
 
     def damage_players(self, player):
         """
@@ -1126,15 +1125,15 @@ class Beer(pygame.sprite.Sprite):
         Параметры:
         player (Player): Игрок, которому будет нанесен урон.
         """
-        if self.chance in range(0, 5):  # Проверка шанса для увеличенного урона
-            self.damage = self.damage * 20000  # Увеличение урона
+        if self.chance in range(0, 5):  
+            self.damage = self.damage * 20000  
         else:
-            self.damage = int(self.damage / self.damage)  # Установка урона в 1, если не попал
+            self.damage = int(self.damage / self.damage)  
         distance = math.hypot(self.rect.centerx - player.rect.centerx,
-                              self.rect.centery - player.rect.centery)  # Вычисление расстояния до игрока
+                              self.rect.centery - player.rect.centery)  
         if distance <= self.explosion_radius:
-            player.hp -= self.damage  # Нанесение урона игроку
-            player.check_alive()  # Проверка состояния игрока после получения урона
+            player.hp -= self.damage  
+            player.check_alive()  
 
 # Класс стрелы
 class Arrow:
@@ -1256,12 +1255,12 @@ class Bullet_for_sniper_rifle:
 
         for tile in world.obstacle_list:
             if tile[1].colliderect(self.rect):
-                return False  # Пуля столкнулась с препятствием
+                return False  
 
         if self.x < 0 or self.x > SCREEN_WIDTH or self.y < 0 or self.y > SCREEN_HEIGHT:
-            return False  # Пуля покинула пределы экрана
+            return False  
 
-        return True  # Пуля все еще в игре
+        return True  
 
     def draw(self, surface):
         """
@@ -1304,11 +1303,11 @@ class Medkit(pygame.sprite.Sprite):
             x (int): Координата по оси X, где будет расположена аптечка.
             y (int): Координата по оси Y, где будет расположена аптечка.
         """
-        pygame.sprite.Sprite.__init__(self)  # Инициализация родительского класса
-        self.image = medkit_img  # Загрузка изображения аптечки
-        self.rect = self.image.get_rect()  # Получение прямоугольника, описывающего аптечку
-        self.rect.center = (x, y)  # Установка центра аптечки в заданные координаты
-        self.heal_amount = 20  # Количество восстанавливаемого здоровья
+        pygame.sprite.Sprite.__init__(self)  
+        self.image = medkit_img  
+        self.rect = self.image.get_rect()  
+        self.rect.center = (x, y)  
+        self.heal_amount = 20  
 
     def update(self, player):
         """
@@ -1318,9 +1317,9 @@ class Medkit(pygame.sprite.Sprite):
         Параметры:
             player (Player): Экземпляр класса игрока, который должен иметь атрибуты 'rect' и 'hp'.
         """
-        if self.rect.colliderect(player.rect):  # Проверка на столкновение с игроком
-            player.hp = min(player.hp + self.heal_amount, 100)  # Восстановление здоровья, ограниченное 100
-            self.kill()  # Удаление аптечки из игры после использования
+        if self.rect.colliderect(player.rect):  
+            player.hp = min(player.hp + self.heal_amount, 100)  
+            self.kill()  
 
 
 class Grenade(pygame.sprite.Sprite):
@@ -1376,16 +1375,15 @@ class Grenade(pygame.sprite.Sprite):
         """
 
         pygame.sprite.Sprite.__init__(self)
-        self.image = grenade_img  # Пример: маленькая красная окружность
-        # screen.blit(self.image,(5,5))
+        self.image = grenade_img  
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
-        self.speed = 10  # Скорость перемещения гранаты
-        self.direction = direction  # Направление движения
-        self.timer = 100  # Время до взрыва (в тиках)
-        self.explosion_radius = 100  # Радиус взрыва
-        self.vy = -15  # Начальная вертикальная скорость (вверх)
-        self.gravity = 0.7  # Значение гравитации
+        self.speed = 10  
+        self.direction = direction  
+        self.timer = 100  # 
+        self.explosion_radius = 100  
+        self.vy = -15  
+        self.gravity = 0.7  
 
     def update(self):
         """
@@ -1399,18 +1397,17 @@ class Grenade(pygame.sprite.Sprite):
         if self.timer <= 0:
             self.explode()
 
-        self.vy += self.gravity  # Применение гравитации
-        self.rect.x += self.speed * self.direction  # Обновление позиции по оси X
-        self.rect.y += self.vy  # Обновление позиции по оси Y
+        self.vy += self.gravity  
+        self.rect.x += self.speed * self.direction  
+        self.rect.y += self.vy  
 
-        # Проверка столкновения с препятствиями
+        
         for tile in world.obstacle_list:
             if tile[1].colliderect(self.rect):
-                self.explode()  # Взрыв при столкновении с препятствием
+                self.explode()  
 
-        # Добавьте проверку на столкновение с игроками:
         if self.rect.colliderect(player2.rect):
-            self.explode()  # Взрыв при столкновении со вторым игроком
+            self.explode()  
 
     def explode(self):
         """
@@ -1418,9 +1415,9 @@ class Grenade(pygame.sprite.Sprite):
         и удаляет гранату из игры.
         """
 
-        self.damage_players(player1)  # Проверяем первого игрока
-        self.damage_players(player2)  # Проверяем второго игрока
-        self.kill()  # Удаление гранаты после взрыва
+        self.damage_players(player1)  
+        self.damage_players(player2)  
+        self.kill()  
 
     def damage_players(self, player):
         """
@@ -1436,8 +1433,8 @@ class Grenade(pygame.sprite.Sprite):
         distance = math.hypot(self.rect.centerx - player.rect.centerx,
                               self.rect.centery - player.rect.centery)
         if distance <= self.explosion_radius:
-            player.hp -= 50  # Урон от гранаты
-            player.check_alive()  # Проверка состояния игрока
+            player.hp -= 50  
+            player.check_alive()  
 
 
 start_button = Button(500, 300, start_img, 2)
@@ -1699,11 +1696,11 @@ while run:
                                 medkit = Medkit(player1.rect.centerx + 50, player1.rect.centery)
                                 medkit_group.add(medkit)
                                 shoot_count += 3
-                            if event.key == pygame.K_SPACE and current_weapon == "grenade":  # Например, клавиша G для броска гранаты
+                            if event.key == pygame.K_SPACE and current_weapon == "grenade":  
                                 grenade = Grenade(player1.rect.centerx, player1.rect.centery, player1.direction)
                                 grenade_group.add(grenade)
                                 shoot_count += 3
-                            if event.key == pygame.K_SPACE and current_weapon == "beer":  # Например, клавиша G для броска гранаты
+                            if event.key == pygame.K_SPACE and current_weapon == "beer":  
                                 beer = Beer(player1.rect.centerx, player1.rect.centery, player1.direction)
                                 beer_group.add(beer)
                                 shoot_count += 1
@@ -1802,11 +1799,11 @@ while run:
                             medkit = Medkit(player1.rect.centerx + 50, player1.rect.centery)
                             medkit_group.add(medkit)
                             shoot_count += 3
-                        if event.key == pygame.K_SPACE and current_weapon == "grenade":  # Например, клавиша G для броска гранаты
+                        if event.key == pygame.K_SPACE and current_weapon == "grenade":  
                             grenade = Grenade(player1.rect.centerx, player1.rect.centery, player1.direction)
                             grenade_group.add(grenade)
                             shoot_count += 3
-                        if event.key == pygame.K_SPACE and current_weapon == "beer":  # Например, клавиша G для броска гранаты
+                        if event.key == pygame.K_SPACE and current_weapon == "beer":  
                             beer = Beer(player1.rect.centerx, player1.rect.centery, player1.direction)
                             beer_group.add(beer)
                             shoot_count += 1
