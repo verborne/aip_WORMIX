@@ -9,8 +9,6 @@ class TestButton(unittest.TestCase):
     def setUp(self):
         pygame.init()
         self.screen = pygame.display.set_mode((1280, 720))
-        self.image = pygame.Surface((100, 50))  # Создаем временное изображение для кнопки
-        self.button = Button(100, 100, self.image, 1)
 
     def tearDown(self):
         pygame.quit()
@@ -18,6 +16,8 @@ class TestButton(unittest.TestCase):
     # Тестирование конструктора __init__
     def test_button_initialization(self):
         # Положительный тест 1
+        self.image = pygame.Surface((100, 50))  # Создаем временное изображение для кнопки
+        self.button = Button(100, 100, self.image, 1)
         self.assertEqual(self.button.rect.topleft, (100, 100))  # Проверка позиции кнопки
         self.assertFalse(self.button.clicked)
         self.assertEqual(self.button.image.get_size(), (100, 50))  # Проверка размера кнопки
