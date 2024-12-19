@@ -4,7 +4,7 @@ import os
 import csv
 import random
 import math
-import socket
+
 
 # Инициализация Pygame
 pygame.init()
@@ -441,7 +441,7 @@ class Worm(pygame.sprite.Sprite):
             :raises TypeError: Если любые из атрибутов, используемых в расчетах, не имеют ожидаемых типов.
             """
         if not self.alive:  # Если игрок не жив, выход из метода
-            return
+            return 
         current_time = pygame.time.get_ticks()
         if self.rifle_shooting and self.rifle_bullets_to_shoot > 0 and current_time - self.rifle_last_bullet_time > self.rifle_bullet_delay:
             angle = random.uniform(-10, 10)  # Случайный угол
@@ -1275,9 +1275,6 @@ class Bullet_for_sniper_rifle:
             self.direction_for_blit = True
         surface.blit(pygame.transform.flip(sniper_rifle_bullet_img, self.direction_for_blit, False),
                      (int(self.x), int(self.y)))
-
-
-import pygame
 
 class Medkit(pygame.sprite.Sprite):
     """
