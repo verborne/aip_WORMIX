@@ -24,22 +24,6 @@ class TestButton(unittest.TestCase):
         # Положительный тест 2
         self.assertEqual(self.button.image.get_size(), (100, 50))  # Проверка размера кнопки
 
-    # Тестирование метода draw
-    def test_button_draw(self):
-        # Положительный тест 1
-        with mock.patch('pygame.mouse.get_pos', return_value=(150, 120)), \
-                mock.patch('pygame.mouse.get_pressed', return_value=(1, 0, 0)), \
-                mock.patch('pygame.display.update') as mock_update:
-            result = self.button.draw(self.screen)
-            self.assertTrue(result)
-            self.assertTrue(self.button.clicked)  # Проверяем, что кнопка теперь считается нажатой
-
-        # Положительный тест 2
-        with mock.patch('pygame.mouse.get_pos', return_value=(150, 120)), \
-                mock.patch('pygame.mouse.get_pressed', return_value=(0, 0, 0)):
-            result = self.button.draw(self.screen)
-            self.assertFalse(result)  # Проверяем, что кнопка не была нажата
-
     @patch("pygame.mouse.get_pos")
     @patch("pygame.mouse.get_pressed")
     def test_draw_button_clicked(self, mock_get_pressed, mock_get_pos):
